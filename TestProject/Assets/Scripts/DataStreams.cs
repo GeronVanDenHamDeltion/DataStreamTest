@@ -17,9 +17,15 @@ public class DataStreams : MonoBehaviour
             {
                 currentamountofstreams++;
                 streams[i].stream.DataIDs.Add(currentamountofstreams);
+                streams[i].amount++;
+                return;
             }
         }
-        //streams.Add
-        // = new DataHolder();
+        DataHolder dat = new DataHolder();
+        dat.stream = stream;
+        currentamountofstreams++;
+        dat.stream.DataIDs.Add(currentamountofstreams);
+        dat.amount++;
+        streams.Add(dat);
     }
 }
