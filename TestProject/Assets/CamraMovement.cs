@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamraMovement : MonoBehaviour{
+public class CamraMovement : MonoBehaviour {
     public Camera cam;
     public float zoomSpeed;
     public float keyMoveSpeed;
@@ -11,32 +11,38 @@ public class CamraMovement : MonoBehaviour{
     private Vector3 holdPosition;
     public float middleMouseMovement;
     public GameObject point;
+    public bool inspect;
 
 
-	void Update (){
+    void Update() {
+        if(Input.GetButtonDown("Cancel")) {
+            inspect = !inspect;
+        }
         Vector3 pos = transform.position;
         pos.x += Input.GetAxis("Horizontal") * Time.deltaTime * keyMoveSpeed;
         pos.y += Input.GetAxis("Vertical") * Time.deltaTime * keyMoveSpeed;
+        if(inspect == true) {
+            if(Input.mousePosition.y >= Screen.height - border) {
+                pos.y += Time.deltaTime * mouseMoveSpeed;
+            }
+            else if(Input.mousePosition.y <= border) {
+                pos.y -= Time.deltaTime * mouseMoveSpeed;
+            }
 
-        if(Input.mousePosition.y >= Screen.height - border){
-            pos.y += Time.deltaTime * mouseMoveSpeed;
-        }
-        else if(Input.mousePosition.y <= border) {
-            pos.y -= Time.deltaTime * mouseMoveSpeed;
+            if(Input.mousePosition.x >= Screen.width - border) {
+                pos.x += Time.deltaTime * mouseMoveSpeed;
+            }
+            else if(Input.mousePosition.x <= border) {
+                pos.x -= Time.deltaTime * mouseMoveSpeed;
+            }
         }
 
-        if(Input.mousePosition.x >= Screen.width - border){
-            pos.x += Time.deltaTime * mouseMoveSpeed;
-        }
-        else if(Input.mousePosition.x <= border){
-            pos.x -= Time.deltaTime * mouseMoveSpeed;
-        }
 
         transform.position = pos;
 
         cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel");
 
-        if(Input.GetButtonDown("Fire3")){
+        if(Input.GetButtonDown("Fire3")) {
             holdPosition.x = Input.mousePosition.x;
             holdPosition.y = Input.mousePosition.y;
             point.active = true;
@@ -46,11 +52,11 @@ public class CamraMovement : MonoBehaviour{
 
         }
 
-        if(Input.GetButton("Fire3")){
+        if(Input.GetButton("Fire3")) {
             transform.position += new Vector3(Input.mousePosition.x - holdPosition.x,Input.mousePosition.y - holdPosition.y) * Time.deltaTime * middleMouseMovement;
         }
 
-        if(Input.GetButtonUp("Fire3")){
+        if(Input.GetButtonUp("Fire3")) {
             point.active = false;
         }
     }
