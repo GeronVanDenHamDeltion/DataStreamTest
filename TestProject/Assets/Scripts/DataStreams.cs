@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class DataStreams : MonoBehaviour
@@ -7,7 +8,29 @@ public class DataStreams : MonoBehaviour
     public Stream streamAdd;
     public List<DataHolder> streams = new List<DataHolder>();
     public int currentamountofstreams;
+    
 
+    public void terminate(string s)
+    {
+        int x = Int32.Parse(s);
+        print(x);
+        for (int i = 0; i < streams.Count; i++)
+        {
+            for (int o = 0; o < streams[i].stream.DataIDs.Count; o++)
+            {
+                if (streams[i].stream.DataIDs[0] == x)
+                {
+                    streams[i].stream.DataIDs.Remove(x);
+                    streams[i].amount--;
+                    if (streams[i].amount == 0)
+                    {
+                        streams.Remove(streams[i]);
+                    }
+                    return;
+                }
+            }
+        }
+    }
     public void OnTempClick()
     {
         for(int i = 0; i < streams.Count; i++)
