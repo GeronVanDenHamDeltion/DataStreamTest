@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DataStreams : MonoBehaviour
 {
-    public Stream stream;
+    public Stream streamAdd;
     public List<DataHolder> streams = new List<DataHolder>();
     public int currentamountofstreams;
 
@@ -12,21 +12,21 @@ public class DataStreams : MonoBehaviour
     {
         for(int i = 0; i < streams.Count; i++)
         {
-            if (stream.StartPoint == streams[i].stream.StartPoint && stream.EndPoint == streams[i].stream.EndPoint)
+            if (streamAdd.StartPoint == streams[i].stream.StartPoint && streamAdd.EndPoint == streams[i].stream.EndPoint)
             {
                 currentamountofstreams++;
                 streams[i].stream.DataIDs.Add(currentamountofstreams);
                 streams[i].amount++;
-                stream = new Stream();
+                streamAdd = new Stream();
                 return;
             }
         }
         DataHolder dat = new DataHolder();
-        dat.stream = stream;
+        dat.stream = streamAdd;
         currentamountofstreams++;
         dat.stream.DataIDs.Add(currentamountofstreams);
         dat.amount++;
         streams.Add(dat);
-        stream = new Stream();
+        streamAdd = new Stream();
     }
 }
