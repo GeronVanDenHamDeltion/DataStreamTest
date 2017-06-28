@@ -8,7 +8,6 @@ public class DataStreams : MonoBehaviour
     public List<DataHolder> streams = new List<DataHolder>();
     public int currentamountofstreams;
 
-
     public void OnTempClick()
     {
         for(int i = 0; i < streams.Count; i++)
@@ -18,6 +17,7 @@ public class DataStreams : MonoBehaviour
                 currentamountofstreams++;
                 streams[i].stream.DataIDs.Add(currentamountofstreams);
                 streams[i].amount++;
+                stream = new Stream();
                 return;
             }
         }
@@ -27,5 +27,6 @@ public class DataStreams : MonoBehaviour
         dat.stream.DataIDs.Add(currentamountofstreams);
         dat.amount++;
         streams.Add(dat);
+        stream = new Stream();
     }
 }
